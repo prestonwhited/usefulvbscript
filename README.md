@@ -8,7 +8,7 @@ VBS files that I have developed for work that do various useful things.
   <tr><td>CHALLENGE</td><td>Many companies have folders full of old format .xls files. When you need to use advanced Excel features, or copy and paste between new and old Excel files there are issues.</td></tr>
   <tr><td>INSTRUCTIONS</td>
           <td>
-                  <br>1) Put this VBS file into a folder that has .xls files, run the script and click OK.
+                  1) Put this VBS file into a folder that has .xls files, run the script and click OK.
                   <br>2) All .xls files will be opened one at a time, saved as a .xlsx file, then the .xls file is moved to the LegacyArchive folder.
                   <br>3) At the end a log text file is created to show all changes made.
           </td></tr>
