@@ -2,7 +2,6 @@
 
 VBS files that I have developed for work that do various useful things.
 
-+--------------------------------+
 |SCRIPT Update File .xls to .xlsx|
 |---------+---
 |SUMMARY  |Changes the .xls files in a folder to .xlsx files.
