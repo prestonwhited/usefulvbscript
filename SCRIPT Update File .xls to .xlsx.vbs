@@ -59,7 +59,7 @@ FOR EACH Fil IN objFolder.Files
 	END IF 
 NEXT 
 
-' Re-enable display alerts, quit excel
+' Re-enable display alerts, quit Excel
 objExcel.DisplayAlerts = TRUE
 objExcel.Quit
 
