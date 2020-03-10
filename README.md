@@ -3,7 +3,7 @@
 VBS files that I have developed for work that do various useful things.
 
 <table>
-  <th colspan="2">SCRIPT Update File .xls to .xlsx</th>
+  <th colspan="2" align="left">SCRIPT Update File .xls to .xlsx</th>
   <tr><td>SUMMARY</td><td>Changes the .xls files in a folder to .xlsx files.</td></tr>
   <tr><td>CHALLENGE</td><td>Many companies have folders full of old format .xls files. When you need to use advanced Excel features, or copy and paste between new and old Excel files there are issues.</td></tr>
 - INSTRUCTIONS:
