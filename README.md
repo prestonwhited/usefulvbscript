@@ -35,3 +35,4 @@ VBS files that I have developed for work that do various useful things.
     <td>
       1) Put this VBS file anywhere on the computer, run the script and it will show a list of all available printers.
     </td></tr>
+</table>
