@@ -28,7 +28,7 @@ VBS files that I have developed for work that do various useful things.
   </tr>
   <tr>
     <td>CHALLENGE</td>
-    <td> was creating an HTA that has buttons to run external vbscripts to automate printing of various reports. Some of those reports print in black and white and others must print in color. I created a dropdown list for the user to select their color printer since each computer listed our Xerox printer as something slightly different. I created this script to pull printer information from the computer.</td>
+    <td>I was creating an HTA that has buttons to run external vbscripts to automate printing of various reports. Some of those reports print in black and white and others must print in color. I created a dropdown list for the user to select their color printer since each computer listed our Xerox printer as something slightly different. I created this script to pull printer information from the computer.</td>
   </tr>
   <tr>
     <td>INSTRUCTIONS</td>
