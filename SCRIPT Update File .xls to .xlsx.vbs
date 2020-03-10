@@ -37,6 +37,8 @@ scriptFolder = objFSO.GetParentFolderName(scriptPath)
 scriptLog = scriptFolder & "\XLS to XLSX Log.txt"
 SET objFolder = objFSO.GetFolder(scriptFolder)
 scriptLegacyArchive = scriptFolder & "\LegacyArchive"
+
+' Check for LegacyArchive folder, create if it doesn't exist
 IF objFSO.FolderExists(scriptLegacyArchive) = FALSE THEN 
 	objFSO.CreateFolder(scriptLegacyArchive)
 END IF 
@@ -46,6 +48,7 @@ SET objExcel = CreateObject("Excel.Application")
 objExcel.Visible = TRUE
 objExcel.DisplayAlerts = FALSE
 
+' Cycle through all files in the current folder, save as .xlsx file, move .xls file to LegacyArchive folder, update message
 FOR EACH Fil IN objFolder.Files 
 	IF RIGHT(Fil.Name,3) = "xls" THEN 
 		SET objBOOK = objExcel.Workbooks.Open(scriptFolder & "\" & Fil.Name)
@@ -56,13 +59,15 @@ FOR EACH Fil IN objFolder.Files
 	END IF 
 NEXT 
 
+' Re-enable display alerts, quit excel
 objExcel.DisplayAlerts = TRUE
 objExcel.Quit
 
-' Write changes to log file
+' Write message to log file
 SET WriteLog = objFSO.OpenTextFile(scriptLog,8,TRUE)
 WriteLog.WriteLine NOW()
 WriteLog.Write Message
 WriteLog.Close
 
+' Display success message
 Assistant = MsgBox("Script finished! Check " & scriptLog & " for changes.",vbOKOnly,"SUCCESS")
