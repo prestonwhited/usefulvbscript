@@ -42,26 +42,37 @@ IF objFSO.FolderExists(scriptLegacyArchive) = FALSE THEN
 	objFSO.CreateFolder(scriptLegacyArchive)
 END IF 
 
-' Check for Excel version
-' pending
-
-' Create Excel object
+' Create Excel object, check for error
+ON ERROR RESUME NEXT
 SET objExcel = CreateObject("Excel.Application")
+IF Err.Number <> 0 THEN 
+	Assistant = MsgBox("Excel is not installed. Script will close." & vbCrLf & Err.Number & " " & Err.Source & " " & Err.Description,vbOKOnly+vbExclamation,"ERROR_1")
+	Err.Clear
+	WScript.Quit
+END IF 
+ON ERROR GOTO 0
 
 ' Make Excel visible and suppress alerts
 objExcel.Visible = TRUE
 objExcel.DisplayAlerts = FALSE
 
-' Cycle through all files in the current folder, save as .xlsx file, move .xls file to LegacyArchive folder, update message
+' Cycle through all files in the current folder, save as .xlsx file, move .xls file to LegacyArchive folder, update message, check for error
+ON ERROR RESUME NEXT 
 FOR EACH Fil IN objFolder.Files 
 	IF RIGHT(Fil.Name,3) = "xls" THEN 
 		SET objBOOK = objExcel.Workbooks.Open(scriptFolder & "\" & Fil.Name)
 		objBOOK.SaveAs scriptFolder & "\" & Fil.Name & "x",xlOpenXMLWorkbook,,,,,,xlLocalSessionChanges
+		IF Err.Number <> 0 THEN 
+			Assistant = MsgBox("Excel 2007 or newer is not installed. Script will close." & vbCrLf & Err.Number & " " & Err.Source & " " & Err.Description,vbOKOnly+vbExclamation,"ERROR_2")
+			Err.Clear 
+			WScript.Quit
+		END IF 
 		Message = Message & Fil.Name & " changed to " & objBOOK.Name & vbCrLf
 		objBOOK.Close
 		objFSO.MoveFile scriptFolder & "\" & Fil.Name, scriptFolder & "\LegacyArchive\" & YEAR(NOW()) & " " & RIGHT("00" & MONTH(NOW()),2) & "-" & RIGHT("00" & DAY(NOW()),2) & " " & Fil.Name
 	END IF 
 NEXT 
+ON ERROR GOTO 0
 
 ' Re-enable display alerts, quit Excel
 objExcel.DisplayAlerts = TRUE
