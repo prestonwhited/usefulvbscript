@@ -16,8 +16,9 @@ Message = "*** UPDATE FILE .XLS TO .XLSX ***" _
 & vbCrLf & "" _
 & vbCrLf & "Make sure the SCRIPT file is in the same folder as the files you want to update." _
 & vbCrLf & "" _
+& vbCrLf & "You must have Excel 2007 or later installed for this script to work." _
+& vbCrLf & "" _
 & vbCrLf & "Click OK to continue, or Cancel to stop script."
-
 Assistant = MsgBox(Message,vbOKCancel+vbInformation,"ATTENTION")
 
 ' Check if user cancels the script at opening message
@@ -25,6 +26,7 @@ IF Assistant = vbCancel THEN
 	EndScript
 END IF
 
+' Message variable cleared
 Message = ""
 
 ' Create file system object needed to navigate files, set variables to orient script to its location
@@ -35,13 +37,10 @@ scriptLog = scriptFolder & "\XLS to XLSX Log.txt"
 SET objFolder = objFSO.GetFolder(scriptFolder)
 scriptLegacyArchive = scriptFolder & "\LegacyArchive"
 
-' Check for LegacyArchive folder, create if it doesn't exist
-IF objFSO.FolderExists(scriptLegacyArchive) = FALSE THEN 
-	objFSO.CreateFolder(scriptLegacyArchive)
-END IF 
-
-' Create Excel object, make Excel visible
+' Create Excel object
 SET objExcel = CreateObject("Excel.Application")
+
+' Make Excel visible and suppress alerts
 objExcel.Visible = TRUE
 objExcel.DisplayAlerts = FALSE
 
@@ -56,7 +55,7 @@ FOR EACH Fil IN objFolder.Files
 	END IF 
 NEXT 
 
-' Re-enable display alerts, quit excel
+' Re-enable display alerts, quit Excel
 objExcel.DisplayAlerts = TRUE
 objExcel.Quit
 
