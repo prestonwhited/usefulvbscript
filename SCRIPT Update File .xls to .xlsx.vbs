@@ -9,6 +9,8 @@ Message = "*** UPDATE FILE .XLS TO .XLSX ***" _
 & vbCrLf & "" _
 & vbCrLf & "Make sure the SCRIPT file is in the same folder as the files you want to update." _
 & vbCrLf & "" _
+& vbCrLf & "You must have Excel 2007 or newer installed for this script to work." _
+& vbCrLf & "" _
 & vbCrLf & "Click OK to continue, or Cancel to stop script."
 Assistant = MsgBox(Message,vbOKCancel+vbInformation,"ATTENTION")
 
@@ -32,7 +34,6 @@ SET objFSO = CreateObject("Scripting.FileSystemObject")
 scriptPath = WScript.ScriptFullName
 scriptFolder = objFSO.GetParentFolderName(scriptPath)
 scriptLog = scriptFolder & "\XLS to XLSX Log.txt"
-scriptSoftware = scriptFolder & "\System Software.txt"
 SET objFolder = objFSO.GetFolder(scriptFolder)
 scriptLegacyArchive = scriptFolder & "\LegacyArchive"
 
@@ -41,24 +42,8 @@ IF objFSO.FolderExists(scriptLegacyArchive) = FALSE THEN
 	objFSO.CreateFolder(scriptLegacyArchive)
 END IF 
 
-' Collect Excel information from computer
-strComputer = "."
-SET objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
-SET colSoftware = objWMIService.ExecQuery("SELECT * FROM Win32_Product")
-
-' Clear Message variable 
-Message = ""
-
-' Loop check software
-FOR EACH objItem IN colSoftware 
-	Message = Message & objItem.Name & " " & objItem.Version & vbCrLf
-NEXT 
-
-' Write message to system software file
-SET WriteLog = objFSO.OpenTextFile(scriptSoftware,2,TRUE)
-WriteLog.WriteLine NOW()
-WriteLog.Write Message
-WriteLog.Close
+' Check for Excel version
+' pending
 
 ' Create Excel object
 SET objExcel = CreateObject("Excel.Application")
