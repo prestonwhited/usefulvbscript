@@ -2,21 +2,12 @@
 CONST xlOpenXMLWorkbook = 51
 CONST xlLocalSessionChanges = 2
 
-' Subroutine that gets called after user cancels the script
-SUB EndScript
-	Message = "Script cancelled."
-	Assistant = MsgBox(Message,vbOKOnly,"END")
-	WScript.Quit
-END SUB
-
 ' Message telling user what to check before proceeding
 Message = "*** UPDATE FILE .XLS TO .XLSX ***" _
 & vbCrLf & "" _
 & vbCrLf & "This script will update every .xls file in the current folder to a .xlsx file." _
 & vbCrLf & "" _
 & vbCrLf & "Make sure the SCRIPT file is in the same folder as the files you want to update." _
-& vbCrLf & "" _
-& vbCrLf & "You must have Excel 2007 or later installed for this script to work." _
 & vbCrLf & "" _
 & vbCrLf & "Click OK to continue, or Cancel to stop script."
 Assistant = MsgBox(Message,vbOKCancel+vbInformation,"ATTENTION")
@@ -26,6 +17,13 @@ IF Assistant = vbCancel THEN
 	EndScript
 END IF
 
+' Subroutine that gets called after user cancels the script
+SUB EndScript
+	Message = "Script cancelled."
+	Assistant = MsgBox(Message,vbOKOnly,"END")
+	WScript.Quit
+END SUB
+
 ' Message variable cleared
 Message = ""
 
@@ -34,8 +32,33 @@ SET objFSO = CreateObject("Scripting.FileSystemObject")
 scriptPath = WScript.ScriptFullName
 scriptFolder = objFSO.GetParentFolderName(scriptPath)
 scriptLog = scriptFolder & "\XLS to XLSX Log.txt"
+scriptSoftware = scriptFolder & "\System Software.txt"
 SET objFolder = objFSO.GetFolder(scriptFolder)
 scriptLegacyArchive = scriptFolder & "\LegacyArchive"
+
+' Check if LegacyArchive folder exists, if not create it
+IF objFSO.FolderExists(scriptLegacyArchive) = FALSE THEN 
+	objFSO.CreateFolder(scriptLegacyArchive)
+END IF 
+
+' Collect Excel information from computer
+strComputer = "."
+SET objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
+SET colSoftware = objWMIService.ExecQuery("SELECT * FROM Win32_Product")
+
+' Clear Message variable 
+Message = ""
+
+' Loop check software
+FOR EACH objItem IN colSoftware 
+	Message = Message & objItem.Name & " " & objItem.Version & vbCrLf
+NEXT 
+
+' Write message to system software file
+SET WriteLog = objFSO.OpenTextFile(scriptSoftware,2,TRUE)
+WriteLog.WriteLine NOW()
+WriteLog.Write Message
+WriteLog.Close
 
 ' Create Excel object
 SET objExcel = CreateObject("Excel.Application")
