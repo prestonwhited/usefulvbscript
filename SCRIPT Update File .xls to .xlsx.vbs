@@ -27,9 +27,6 @@ END IF
 
 Message = ""
 
-' Create shell object needed to command MOM
-SET objShell = CreateObject("WScript.Shell")
-
 ' Create file system object needed to navigate files, set variables to orient script to its location
 SET objFSO = CreateObject("Scripting.FileSystemObject")
 scriptPath = WScript.ScriptFullName
