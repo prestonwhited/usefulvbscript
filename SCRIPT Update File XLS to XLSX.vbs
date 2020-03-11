@@ -47,10 +47,6 @@ IF Err.Number <> 0 THEN
 END IF 
 ON ERROR GOTO 0
 
-' Make Excel visible and suppress alerts
-objExcel.Visible = TRUE
-objExcel.DisplayAlerts = FALSE
-
 ' Setup counting variable
 Counter = 0
 
@@ -69,6 +65,10 @@ END IF
 IF objFSO.FolderExists(scriptLegacyArchive) = FALSE THEN 
 	objFSO.CreateFolder(scriptLegacyArchive)
 END IF 
+
+' Make Excel visible and suppress alerts
+objExcel.Visible = TRUE
+objExcel.DisplayAlerts = FALSE
 
 ' Cycle through all files in the current folder, save as .xlsx file, move .xls file to LegacyArchive folder, update message, check for error
 ON ERROR RESUME NEXT 
