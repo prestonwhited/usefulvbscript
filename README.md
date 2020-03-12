@@ -1,6 +1,6 @@
 # usefulvbscript
 
-VBS files that I have developed for work that do various useful things.
+VBS files that I have developed for work that do useful things.
 
 <table>
   <th colspan="2" align="left">SCRIPT Update File XLS to XLSX</th>
