@@ -7,7 +7,7 @@ SCRIPT Update File XLS to XLSX
 ------------------------------
 
 SUMMARY
-Changes the .xls files in a folder to .xlsx files.</td>
+Changes the .xls files in a folder to .xlsx files.
 
 CHALLENGE
 Many companies have folders full of old format .xls files. When you need to use advanced Excel features, or copy and paste between new and old Excel files there are issues.
