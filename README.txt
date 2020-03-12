@@ -25,7 +25,7 @@ SUMMARY
 Displays a list of all printers available on a computer.
 
 CHALLENGE
-I was creating an HTA that has buttons to run external vbscripts to automate printing of various reports. Some of those reports print in black and white and others must print in color. I created a dropdown list for the user to select their color printer since each computer listed our Xerox printer as something slightly different. I created this script to pull printer information from the computer.
+I was creating an HTA that has buttons to run external vbscripts to automate printing of various reports. Some of those reports print in black and white and others must print in color. I created a dropdown list for the user to select their color printer since each computer on the network listed our Xerox printer as something slightly different. I created this script to pull printer information from the user's computer as a test before implementing similar code inside the HTA to create a select list.
 
 INSTRUCTIONS:
 1) Put this VBS file anywhere on the computer, run the script and it will show a list of all available printers.
